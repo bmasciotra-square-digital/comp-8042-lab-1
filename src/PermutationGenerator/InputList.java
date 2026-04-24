@@ -1,6 +1,5 @@
 package PermutationGenerator;
 
-public class IntermediaryList<T> {
-
+public class InputList <T>{
     public int size;
 }

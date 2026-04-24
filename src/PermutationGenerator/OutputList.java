@@ -1,4 +1,4 @@
 package PermutationGenerator;
 
-public class OutputList {
+public class OutputList<T> {
 }
