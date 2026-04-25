@@ -34,35 +34,9 @@ public class PermutationGenerator<T extends Comparable<T>> {
 
         for (int i = 0; i < inputList.size; i++) {
             T value = inputList.getValueAtIndex(i);
-
             iterateAndAssess(i, value, output, true);
-
-//            T focused = null;
-//
-//            int n = inputList.size;
-//
-//            for (int j = i + 1; j < n; j++) {
-//                T front = inputList.getValueAtIndex(j);
-//                T back = inputList.getValueAtIndex(n - 1);
-//                T chosenValue = getChosenSmallestValue(value, front, back);
-//
-//                if (value.compareTo(chosenValue) < 0) {
-//                    if (focused == null) {
-//                        focused = chosenValue;
-//                    } else {
-//                        // If the new value is less than the focused value
-//                        if (chosenValue.compareTo(focused) <= 0) {
-//                            focused = chosenValue;
-//                        }
-//                    }
-//                }
-//
-//                n--;
-//            }
-//
-//            output.add(focused);
-
         }
+
         return output;
     }
 
@@ -74,7 +48,7 @@ public class PermutationGenerator<T extends Comparable<T>> {
      * same data structures you chose in question 1 to write a method that generates a new list of
      * size n that contains the largest number in L located after position i that is smaller than L[i].
      *
-     * @return
+     * @return and Output list with
      */
     public OutputList<T> largestSmallerNumbers() {
         OutputList<T> output = new OutputList<>();
@@ -83,29 +57,6 @@ public class PermutationGenerator<T extends Comparable<T>> {
             T value = inputList.getValueAtIndex(i);
 
             iterateAndAssess(i, value, output, false);
-
-//            int n = this.inputList.size;
-//
-//            for (int j = i + 1; j < n; j++) {
-//                T front = inputList.getValueAtIndex(j);
-//                T back = inputList.getValueAtIndex(n - 1);
-//
-//                T chosenValue = getChosenLargestValue(value, front, back);
-//
-//                if (value.compareTo(chosenValue) > 0) {
-//                    if (focused == null) {
-//                        focused = chosenValue;
-//                    } else {
-//                        if (chosenValue.compareTo(focused) >= 0) {
-//                            focused = chosenValue;
-//                        }
-//                    }
-//                }
-//
-//                n--;
-//            }
-//
-//            output.add(focused);
         }
 
         return output;
@@ -189,7 +140,6 @@ public class PermutationGenerator<T extends Comparable<T>> {
         for (int j = i + 1; j < n; j++) {
             T front = inputList.getValueAtIndex(j);
             T back = inputList.getValueAtIndex(n - 1);
-
             T chosenValue = (small) ? getChosenSmallestValue(value, front, back) : getChosenLargestValue(value, front, back);
 
             boolean evaluation = (small) ? value.compareTo(chosenValue) < 0 : value.compareTo(chosenValue) > 0;
