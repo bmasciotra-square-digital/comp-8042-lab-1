@@ -5,7 +5,6 @@ import permutation.generator.InputList;
 import permutation.generator.OutputList;
 import permutation.generator.PermutationGenerator;
 
-import java.util.Random;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

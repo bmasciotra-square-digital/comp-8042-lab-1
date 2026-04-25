@@ -17,6 +17,11 @@ public class InputList<T> {
         this.data = new ArrayList<>(Arrays.stream(input).toList());
     }
 
+    public InputList(InputList<T> inputList) {
+        this.size = inputList.size;
+        this.data = inputList.getData();
+    }
+
 
     public void append(T value) {
         data.add(value);
@@ -34,6 +39,10 @@ public class InputList<T> {
         }
 
         return data.get(index);
+    }
+
+    public ArrayList<T> getData() {
+        return this.data;
     }
 
     public String toString() {

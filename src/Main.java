@@ -7,7 +7,7 @@ import permutation.generator.PermutationGenerator;
 public class Main {
     public static void main(String[] args) {
 
-   //     Integer[] input = new Integer[]{12, 64, 13, 4, 35, 10, 38};
+        //     Integer[] input = new Integer[]{12, 64, 13, 4, 35, 10, 38};
         Integer[] input = new Integer[]{1, 0, 6, 4, 2, 3, 5};
 
         // should be [64, null, 38, 38, 38, 38]
@@ -18,5 +18,12 @@ public class Main {
         OutputList<Integer> output = generator.smallestLargerNumbers();
 
         System.out.println(output);
+
+        OutputList<Integer> largestSmallerNumbers = generator.largestSmallerNumbers();
+
+        System.out.println(largestSmallerNumbers);
+
+        // [0,null,5,3,null,null,null]
+        generator.shuffle();
     }
 }
