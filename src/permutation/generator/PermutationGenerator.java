@@ -9,13 +9,11 @@ public class PermutationGenerator<T extends Comparable<T>> {
     private InputList<T> inputList;
     private final IntermediaryList<T> interList;
 
-
     public PermutationGenerator(int n) {
         this.size = n;
         this.inputList = new InputList<>();
         this.interList = new IntermediaryList<>();
     }
-
 
     public PermutationGenerator(InputList<T> inputList) {
         this.inputList = inputList;
@@ -147,11 +145,13 @@ public class PermutationGenerator<T extends Comparable<T>> {
             if (evaluation) {
                 if (focused == null) {
                     focused = chosenValue;
-                } else {
-                    boolean finalEvaluation = (small) ? chosenValue.compareTo(focused) <= 0 : chosenValue.compareTo(focused) >= 0;
-                    if (finalEvaluation) {
-                        focused = chosenValue;
-                    }
+                    continue;
+                }
+
+                boolean finalEvaluation = (small) ? chosenValue.compareTo(focused) <= 0 : chosenValue.compareTo(focused) >= 0;
+
+                if (finalEvaluation) {
+                    focused = chosenValue;
                 }
             }
 
