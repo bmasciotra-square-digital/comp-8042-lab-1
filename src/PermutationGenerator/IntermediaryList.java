@@ -1,6 +1,0 @@
-package PermutationGenerator;
-
-public class IntermediaryList<T> {
-
-    public int size;
-}
