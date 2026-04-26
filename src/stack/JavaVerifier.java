@@ -7,7 +7,6 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
 public class JavaVerifier<T> {
     private final ArrayListStack<FileMetaData> stack;
 
@@ -36,36 +35,10 @@ public class JavaVerifier<T> {
 
                     // Find all the matches and push the file data structure to the stack
                     while (matcher.find()) {
-                        BracketType type = null;
-                        BracketPosition position = switch (next.charAt(matcher.start())) {
-                            case '(' -> {
-                                type = BracketType.Regular;
-                                yield BracketPosition.Left;
-                            }
-                            case ')' -> {
-                                type = BracketType.Regular;
-                                yield BracketPosition.Right;
-                            }
-                            case '{' -> {
-                                type = BracketType.Curly;
-                                yield BracketPosition.Left;
-                            }
-                            case '}' -> {
-                                type = BracketType.Curly;
-                                yield BracketPosition.Right;
-                            }
-                            case '[' -> {
-                                type = BracketType.Square;
-                                yield BracketPosition.Left;
-                            }
-                            case ']' -> {
-                                type = BracketType.Square;
-                                yield BracketPosition.Right;
-                            }
-                            default -> null;
-                        };
+                        char bracket = next.charAt(matcher.start());
+                        stack.BracketSpecs specs = deferBracketSpecs(bracket);
 
-                        FileMetaData location = new FileMetaData(next, matcher.start(), lineNumber, next.charAt(matcher.start()), position, type);
+                        FileMetaData location = new FileMetaData(next, matcher.start(), lineNumber, next.charAt(matcher.start()), specs.position(), specs.type());
 
                         // A right bracket signifies a closing bracket
                         if (location.position == BracketPosition.Right) {
@@ -106,24 +79,37 @@ public class JavaVerifier<T> {
         }
     }
 
-//    private FileMetaData[] filterQueueByBrackets(String filter) {
-//
-//    }
 
+    private BracketSpecs deferBracketSpecs(char bracket) {
+        BracketType type = null;
+        BracketPosition position = switch (bracket) {
+            case '(' -> {
+                type = BracketType.Regular;
+                yield BracketPosition.Left;
+            }
+            case ')' -> {
+                type = BracketType.Regular;
+                yield BracketPosition.Right;
+            }
+            case '{' -> {
+                type = BracketType.Curly;
+                yield BracketPosition.Left;
+            }
+            case '}' -> {
+                type = BracketType.Curly;
+                yield BracketPosition.Right;
+            }
+            case '[' -> {
+                type = BracketType.Square;
+                yield BracketPosition.Left;
+            }
+            case ']' -> {
+                type = BracketType.Square;
+                yield BracketPosition.Right;
+            }
+            default -> null;
+        };
 
-    /**
-     * Brackets have a relationship on the stack where the first one on is related to the last one from a left and right perspective
-     *
-     */
-    private void findMissingBrackets(Map<BracketType, FileMetaData> metaData) {
-
-
-        //iterate forward and backwards
-        for (int i = 0; i < metaData.size(); i++) {
-            //for(int j = metaData.size(); j)
-
-
-        }
-
+        return new BracketSpecs(type, position);
     }
 }

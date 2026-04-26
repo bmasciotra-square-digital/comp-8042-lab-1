@@ -34,7 +34,7 @@ public class Main {
 
         // Section 2: Stack
 
-        String path = "external/StackParenthesesTask4.java";
+        String path = "external/StackParenthesesTask3.java";
         JavaVerifier<Character> verifier = new JavaVerifier<>();
 
         File file = new File(path);
