@@ -28,8 +28,7 @@ public class QuickMarker {
 
     private void initApplicants() {
         for (int i = 0; i < this.numberApplicants; i++) {
-            applicants[i] = new Applicant(i, 0);
-
+            applicants[i] = new Applicant(i + 1, 0);
             // queue the applicant
             queue.add(applicants[i]);
         }
@@ -39,7 +38,6 @@ public class QuickMarker {
         int i = 0;
         while (!this.queue.isEmpty()) {
             // get the applicant from the queue
-
             Applicant a = queue.poll();
 
             if (i == skip - 1) {
@@ -59,10 +57,10 @@ public class QuickMarker {
     }
 
     public static void main(String[] args) {
-        QuickMarker quickMarker = new QuickMarker(10, 4);
+         QuickMarker quickMarker = new QuickMarker(10, 4);
         //   QuickMarker quickMarker = new QuickMarker(12, 3);
 //        QuickMarker quickMarker = new QuickMarker(180, 37);
-        // QuickMarker quickMarker = new QuickMarker(1100, 259);
+      //  QuickMarker quickMarker = new QuickMarker(1100, 259);
 
         Applicant[] applicants = quickMarker.getMarking();
 
