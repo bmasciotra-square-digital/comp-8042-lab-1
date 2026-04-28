@@ -39,12 +39,21 @@ public class QuickMarker {
         // each applicant needs to choose a number less than n
         int applicantsMarked = 0;
 
-        while (this.queue.peek() != null) {
+        int i = 0;
+        while (!this.queue.isEmpty()) {
             // get the applicant from the queue
-            Applicant a = getApplicant(skip);
-            markApplicant(a, applicantsMarked);
 
-            applicantsMarked++;
+            Applicant a = queue.poll();
+
+            if (i == skip - 1) {
+                markApplicant(a, applicantsMarked);
+                applicantsMarked++;
+                i = 0;
+                continue;
+            }
+
+            queue.add(a);
+            i++;
         }
     }
 
@@ -53,20 +62,12 @@ public class QuickMarker {
         a.setMark(mark);
     }
 
-    private Applicant getApplicant(int skip) {
-
-        // for 1 less iteration, remove and requeue the applicant
-        for (int i = 0; i < skip - 1; i++) {
-            Applicant a = queue.poll();
-            queue.add(a);
-        }
-
-        // return the last applicant
-        return queue.poll();
-    }
-
     public static void main(String[] args) {
-        QuickMarker quickMarker = new QuickMarker(10, 4);
+        //  QuickMarker quickMarker = new QuickMarker(10, 4);
+        //   QuickMarker quickMarker = new QuickMarker(12, 3);
+//        QuickMarker quickMarker = new QuickMarker(180, 37);
+        QuickMarker quickMarker = new QuickMarker(1100, 259);
+
         Applicant[] applicants = quickMarker.getMarking();
 
         for (Applicant applicant : applicants) {

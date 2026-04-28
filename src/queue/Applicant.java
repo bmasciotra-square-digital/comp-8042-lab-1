@@ -10,7 +10,7 @@ public class Applicant {
     }
 
     public String toString() {
-        return "Applicant " + applicantNumber + " got a mark of " + mark;
+        return String.format("Applicant %d got a mark of %.2f%%", applicantNumber, mark);
     }
 
     private void validateMark(float mark) throws IllegalArgumentException {
