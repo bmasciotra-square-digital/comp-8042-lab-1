@@ -1,12 +1,12 @@
 package permutation.generator;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 
 public class PermutationGenerator<T extends Comparable<T>> {
     public final int size;
-    private InputList<T> inputList;
+    private final InputList<T> inputList;
     private final IntermediaryList<T> interList;
 
     public PermutationGenerator(int n) {
@@ -19,6 +19,8 @@ public class PermutationGenerator<T extends Comparable<T>> {
         this.inputList = inputList;
         this.interList = new IntermediaryList<T>();
         this.size = inputList.size;
+
+        // shuffle(); // Note: This is commented out for testing to ensure expected values, uncomment to test the shuffle functionality
     }
 
 
@@ -38,9 +40,6 @@ public class PermutationGenerator<T extends Comparable<T>> {
         return output;
     }
 
-    /// Example: L = [1,0,6,4,2,3,5] L new = [0,null,5,3,null,null,null]
-
-
     /**
      * Given a list L of n integers which are some permutation of the numbers 0, 1, 2, ... , n-1. Use the
      * same data structures you chose in question 1 to write a method that generates a new list of
@@ -53,111 +52,65 @@ public class PermutationGenerator<T extends Comparable<T>> {
 
         for (int i = 0; i < inputList.size; i++) {
             T value = inputList.getValueAtIndex(i);
-
             iterateAndAssess(i, value, output, false);
         }
 
         return output;
     }
 
+    /**
+     * Shuffles the input list a random amount of times less than the size of the input list.
+     * the shuffle utilizes collections swap to swap the elements of 2 random indices n amount of times
+     */
     public void shuffle() {
-        InputList<T> shuffled = new InputList<>();
-        ArrayList<Integer> visited = new ArrayList<>();
-
         Random random = new Random();
 
-        for (int i = 0; i < this.inputList.size; i++) {
-            int index = random.nextInt(this.inputList.size);
+        int bound = this.inputList.size - 1;
+        int shuffles = random.nextInt(bound);
 
-            while (visited.contains(index)) {
-                index = random.nextInt(this.inputList.size);
-            }
+        for (int i = 0; i < shuffles; i++) {
+            // swap 2 random items per shuffle with the collections API
+            // (there is a case where we swap the same index, but it won't affect the shuffle to much
 
-            visited.add(index);
-
-            shuffled.append(this.inputList.getValueAtIndex(index));
+            Collections.swap(this.inputList.getData(), random.nextInt(bound), random.nextInt(bound));
         }
-
-        this.inputList = shuffled;
     }
 
-    private T getChosenSmallestValue(T value, T front, T back) {
-        int frontCompared = front.compareTo(value);
-        int backCompared = back.compareTo(value);
-
-        T chosenValue = null;
-
-        // If they are both larger than the value in scope
-        if (frontCompared == backCompared) {
-            // we want the smallest compared to both
-            int smallest = front.compareTo(back);
-            chosenValue = (smallest < 0) ? front : back;
-        }
-
-        // If the front is
-        if (frontCompared > backCompared) {
-            chosenValue = front;
-        }
-
-        if (backCompared > frontCompared) {
-            chosenValue = back;
-        }
-
-        return chosenValue;
-
-    }
-
-    private T getChosenLargestValue(T value, T front, T back) {
-        int frontCompared = front.compareTo(value);
-        int backCompared = back.compareTo(value);
-
-        T chosenValue = null;
-
-        // If they are both larger than the value in scope
-        if (frontCompared == backCompared) {
-            int largest = front.compareTo(back);
-            chosenValue = (largest > 0) ? front : back;
-        }
-
-        if (frontCompared > backCompared) {
-            chosenValue = back;
-        }
-
-        if (backCompared > frontCompared) {
-            chosenValue = front;
-        }
-
-        return chosenValue;
-
-    }
-
+    /**
+     * Performs a second iteration to find the optimal value based on the condition of the algorithm
+     *
+     * @param i      the index
+     * @param value  the value we are assessing
+     * @param output the output list
+     * @param small  a boolean determining if we are solving for smallest or largest after index
+     */
     private void iterateAndAssess(int i, T value, OutputList<T> output, boolean small) {
-        int n = this.inputList.size;
-        T focused = null;
+        T best = null;
 
-        for (int j = i + 1; j < n; j++) {
-            T front = inputList.getValueAtIndex(j);
-            T back = inputList.getValueAtIndex(n - 1);
-            T chosenValue = (small) ? getChosenSmallestValue(value, front, back) : getChosenLargestValue(value, front, back);
+        for (int j = i + 1; j < inputList.size; j++) {
+            T x = inputList.getValueAtIndex(j);
 
-            boolean evaluation = (small) ? value.compareTo(chosenValue) < 0 : value.compareTo(chosenValue) > 0;
+            boolean ok = small ? x.compareTo(value) > 0 : x.compareTo(value) < 0;
 
-            if (evaluation) {
-                if (focused == null) {
-                    focused = chosenValue;
-                    continue;
-                }
-
-                boolean finalEvaluation = (small) ? chosenValue.compareTo(focused) <= 0 : chosenValue.compareTo(focused) >= 0;
-
-                if (finalEvaluation) {
-                    focused = chosenValue;
-                }
+            if (!ok) {
+                continue;
             }
 
-            n--;
+            if (best == null) {
+                // Set the value if null
+                best = x;
+                continue;
+            }
+
+            // compare the new value to the optimal value
+            int cmp = x.compareTo(best);
+
+            // cover the larger and smaller scenarios
+            if ((small && cmp < 0) || (!small && cmp > 0)) {
+                best = x;
+            }
         }
 
-        output.add(focused);
+        output.add(best);
     }
 }

@@ -1,3 +1,4 @@
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -8,10 +9,45 @@ import permutation.generator.PermutationGenerator;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class PermutationGeneratorTest {
 
-    // List Tests
+    @Test
+    void handoutExampleSmallestAndLargestSmaller() {
+        Integer[] input = new Integer[]{1, 0, 6, 4, 2, 3, 5};
+        InputList<Integer> list = new InputList<>(input);
+        PermutationGenerator<Integer> p = new PermutationGenerator<>(list);
+
+        OutputList<Integer> smallest = p.smallestLargerNumbers();
+
+        assertEquals(7, smallest.size);
+        assertEquals(Integer.valueOf(2), smallest.get(0));
+        assertEquals(Integer.valueOf(2), smallest.get(1));
+
+        assertNull(smallest.get(2));
+
+        assertEquals(Integer.valueOf(5), smallest.get(3));
+        assertEquals(Integer.valueOf(3), smallest.get(4));
+        assertEquals(Integer.valueOf(5), smallest.get(5));
+
+        assertNull(smallest.get(6));
+
+        OutputList<Integer> largest = p.largestSmallerNumbers();
+
+        assertEquals(7, largest.size);
+        assertEquals(Integer.valueOf(0), largest.get(0));
+
+        assertNull(largest.get(1));
+
+        assertEquals(Integer.valueOf(5), largest.get(2));
+        assertEquals(Integer.valueOf(3), largest.get(3));
+
+        assertNull(largest.get(4));
+        assertNull(largest.get(5));
+        assertNull(largest.get(6));
+    }
+
     static Stream<Arguments> inputProviderOne() {
         Integer[] input = new Integer[]{4, 1, 3, 2, 5};
         InputList<Integer> list1 = new InputList<>(input);
