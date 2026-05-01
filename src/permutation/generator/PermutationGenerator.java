@@ -1,7 +1,6 @@
 package permutation.generator;
 
-import java.util.Collections;
-import java.util.Random;
+import java.util.*;
 
 
 public class PermutationGenerator<T extends Comparable<T>> {
