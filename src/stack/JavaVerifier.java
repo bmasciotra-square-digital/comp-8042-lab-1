@@ -23,6 +23,7 @@ public class JavaVerifier<T> {
     }
 
     private void parseAndVerify(File file) throws Exception {
+        // regex pattern to match any type of bracket
         Pattern pattern = Pattern.compile("[(){}\\[\\]]");
 
         try (Scanner reader = new Scanner(file)) {

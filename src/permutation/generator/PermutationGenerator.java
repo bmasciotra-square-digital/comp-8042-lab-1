@@ -65,7 +65,7 @@ public class PermutationGenerator<T extends Comparable<T>> {
     public void shuffle() {
         Random random = new Random();
 
-        int bound = this.inputList.size - 1;
+        int bound = this.inputList.size;
         int shuffles = random.nextInt(bound);
 
         for (int i = 0; i < shuffles; i++) {

@@ -1,16 +1,12 @@
 package queue;
 
-import java.util.HashMap;
 import java.util.LinkedList;
 
 public class QuickMarker {
     private final LinkedList<Applicant> queue;
     private final Applicant[] applicants;
     private final int numberApplicants;
-    private final int skip;
-
-    private HashMap<Integer, Boolean> map = new HashMap<Integer, Boolean>();
-
+    private int skip;
 
     public QuickMarker(int numberApplicants, int skip) {
         this.numberApplicants = numberApplicants;
@@ -24,6 +20,10 @@ public class QuickMarker {
     public Applicant[] getMarking() {
         runMarking();
         return applicants;
+    }
+
+    public void setSkip(int n) {
+        this.skip = n;
     }
 
     private void initApplicants() {
@@ -57,10 +57,10 @@ public class QuickMarker {
     }
 
     public static void main(String[] args) {
-         QuickMarker quickMarker = new QuickMarker(10, 4);
+        QuickMarker quickMarker = new QuickMarker(10, 4);
         //   QuickMarker quickMarker = new QuickMarker(12, 3);
 //        QuickMarker quickMarker = new QuickMarker(180, 37);
-      //  QuickMarker quickMarker = new QuickMarker(1100, 259);
+        //  QuickMarker quickMarker = new QuickMarker(1100, 259);
 
         Applicant[] applicants = quickMarker.getMarking();
 
