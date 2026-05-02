@@ -2,9 +2,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import permutation.generator.InputList;
-import permutation.generator.OutputList;
-import permutation.generator.PermutationGenerator;
+import permutationGenerator.InputList;
+import permutationGenerator.OutputList;
+import permutationGenerator.PermutationGenerator;
 
 import java.util.stream.Stream;
 

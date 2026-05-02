@@ -6,7 +6,7 @@ public class QuickMarker {
     private final LinkedList<Applicant> queue;
     private final Applicant[] applicants;
     private final int numberApplicants;
-    private int skip;
+    private final int skip;
 
     public QuickMarker(int numberApplicants, int skip) {
         this.numberApplicants = numberApplicants;
@@ -20,10 +20,6 @@ public class QuickMarker {
     public Applicant[] getMarking() {
         runMarking();
         return applicants;
-    }
-
-    public void setSkip(int n) {
-        this.skip = n;
     }
 
     private void initApplicants() {
@@ -56,16 +52,28 @@ public class QuickMarker {
         a.setMark(mark);
     }
 
+
     public static void main(String[] args) {
-        QuickMarker quickMarker = new QuickMarker(10, 4);
-        //   QuickMarker quickMarker = new QuickMarker(12, 3);
-//        QuickMarker quickMarker = new QuickMarker(180, 37);
-        //  QuickMarker quickMarker = new QuickMarker(1100, 259);
 
-        Applicant[] applicants = quickMarker.getMarking();
+        QuizMarkerInput[] inputs = new QuizMarkerInput[]{
+                new QuizMarkerInput(10, 4),
+                new QuizMarkerInput(12, 3),
+                new QuizMarkerInput(180, 37),
+                new QuizMarkerInput(1100, 259)
+        };
 
-        for (Applicant applicant : applicants) {
-            System.out.println(applicant);
+        for (QuizMarkerInput i : inputs) {
+            QuickMarker quickMarker = new QuickMarker(i.numberOfApplicants(), i.skip());
+
+            System.out.printf("Running Quiz Marker for Values [Number of applicants: %d] and [skip: %d] \n\n", i.numberOfApplicants(), i.skip());
+            Applicant[] applicants = quickMarker.getMarking();
+
+            for (Applicant applicant : applicants) {
+                System.out.println(applicant);
+            }
+
+            System.out.println("\n");
         }
     }
 }
+

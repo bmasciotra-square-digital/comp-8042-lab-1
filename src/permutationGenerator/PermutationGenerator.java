@@ -1,4 +1,4 @@
-package permutation.generator;
+package permutationGenerator;
 
 import java.util.*;
 
@@ -6,7 +6,7 @@ import java.util.*;
 public class PermutationGenerator<T extends Comparable<T>> {
     public final int size;
     private final InputList<T> inputList;
-    private final IntermediaryList<T> interList;
+    private final IntermediaryList<T> interList; // instantiated as per lab but solution does not use.
 
     public PermutationGenerator(int n) {
         this.size = n;

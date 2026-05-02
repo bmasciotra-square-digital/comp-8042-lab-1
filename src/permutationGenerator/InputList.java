@@ -1,4 +1,4 @@
-package permutation.generator;
+package permutationGenerator;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 public class InputList<T> {
     public int size;
-    private ArrayList<T> data;
+    private final ArrayList<T> data;
 
     public InputList() {
         this.data = new ArrayList<>();

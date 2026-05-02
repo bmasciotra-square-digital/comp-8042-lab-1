@@ -1,11 +1,11 @@
-package permutation.generator;
+package permutationGenerator;
 
 import java.util.ArrayList;
 
 public class IntermediaryList<T> {
 
     public int size;
-    private ArrayList<T> buffer;
+    private final ArrayList<T> buffer;
 
     public IntermediaryList() {
         this.size = 0;
@@ -14,7 +14,6 @@ public class IntermediaryList<T> {
 
     public void AddToIntermediaryList(T value) {
         // Accept null values
-
         this.buffer.add(value); // Append to the end
     }
 }

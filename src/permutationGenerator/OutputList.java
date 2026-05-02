@@ -1,6 +1,5 @@
-package permutation.generator;
+package permutationGenerator;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class OutputList<T> {
