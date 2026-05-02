@@ -39,27 +39,27 @@ public class JavaVerifier<T> {
                         char bracket = next.charAt(matcher.start());
                         stack.BracketSpecs specs = deferBracketSpecs(bracket);
 
-                        FileMetaData location = new FileMetaData(next, matcher.start(), lineNumber, next.charAt(matcher.start()), specs.position(), specs.type());
+                        FileMetaData meta = new FileMetaData(next, matcher.start(), lineNumber, next.charAt(matcher.start()), specs.position(), specs.type());
 
                         // A right bracket signifies a closing bracket
-                        if (location.position == BracketPosition.Right) {
+                        if (meta.position == BracketPosition.Right) {
                             if (this.stack.empty()) {
-                                throw new Exception("closing bracket with no matching opener (" + locationString(location) + ")");
+                                throw new Exception("closing bracket with no matching opener (" + locationString(meta) + ")");
                             }
 
                             // Always pop so that the stack is aligned with the parsed data stream
                             FileMetaData previous = this.stack.pop();
 
                             // once popped if, since we have been popping as we go, this type should be aligned with the opening bracket
-                            if (previous.type != location.type) {
+                            if (previous.type != meta.type) {
                                 throw new Exception("bracket type mismatch: expected " + previous.type
-                                        + ", found " + location.type + " (" + locationString(location) + ")");
+                                        + ", found " + meta.type + " (" + locationString(meta) + ")");
                             }
                         }
 
                         // After the checks, push to the stack (pushing opening brackets)
-                        if (location.position == BracketPosition.Left) {
-                            stack.push(location);
+                        if (meta.position == BracketPosition.Left) {
+                            stack.push(meta);
                         }
                     }
 
